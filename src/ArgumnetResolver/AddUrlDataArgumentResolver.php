@@ -35,6 +35,7 @@ class AddUrlDataArgumentResolver implements ArgumentValueResolverInterface
         Request $request,
         ArgumentMetadata $argument
     ): iterable {
+
         $params = json_decode(
             json: $request->getContent(),
             associative: true,

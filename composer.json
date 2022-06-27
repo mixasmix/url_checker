@@ -19,7 +19,9 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "guzzle/http": "^3.9",
-        "symfony/runtime": "6.1.*"
+        "symfony/runtime": "6.1.*",
+        "symfony/amqp-messenger": "6.1.*",
+        "sensio/framework-extra-bundle": "^6.2"
     },
     "license": "MIT",
     "autoload": {

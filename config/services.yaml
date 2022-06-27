@@ -4,7 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    projectDir: '%kernel.project_dir%'
+    rabbitmq.dsn: '%env(resolve:MESSENGER_TRANSPORT_DSN)%'
+    app.messenger.checkUrl.exchange: 'checkUrl'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -17,5 +19,12 @@ services:
         resource: '../src/'
         exclude: '../src/{DependencyInjection,DTO,VO,Entity,Migrations,Tests,Kernel.php}'
 
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    App\ArgumentResolver\AddUrlDataArgumentResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 150 }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
