@@ -137,6 +137,7 @@ class Url implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
+            'id' => $this->getId(),
             'url' => $this->getUrl(),
             'frequency' => $this->getFrequency(),
             'quantity_repeat' => $this->getQuantityRepeated(),

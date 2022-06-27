@@ -12,7 +12,7 @@ use App\Repository\CheckRepository;
     repositoryClass: CheckRepository::class,
 )]
 #[ORM\Table(
-    name: 'check',
+    name: 'check_url',
 )]
 class Check implements JsonSerializable
 {

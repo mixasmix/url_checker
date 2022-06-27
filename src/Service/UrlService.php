@@ -5,6 +5,7 @@ namespace App\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use App\Entity\Url;
+use Throwable;
 
 class UrlService
 {
@@ -40,7 +41,8 @@ class UrlService
 
             $this->entityManager->persist($url);
             $this->entityManager->flush();
-        } catch (Exception $exception) {
+            $this->entityManager->commit();
+        } catch (Throwable $exception) {
             $this->entityManager->rollback();
 
             throw $exception;
