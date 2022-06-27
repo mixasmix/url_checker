@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Check;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use App\Entity\Url;
@@ -14,6 +15,21 @@ class UrlService
      */
     public function __construct(private EntityManagerInterface $entityManager)
     {
+    }
+
+    /**
+     * @param Url   $url
+     * @param Check $check
+     *
+     * @return Url
+     */
+    public function addCheck(Url $url, Check $check): Url
+    {
+        $url->addCheck($check);
+
+        $this->entityManager->flush();
+
+        return $url;
     }
 
     /**

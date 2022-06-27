@@ -40,6 +40,7 @@ class CheckUrlMessageHandler implements MessageHandlerInterface
     {
         $url = $this->urlRepository->getById($message->getUrlId());
 
+        //если все попытки отработали то удаляем сообщение
         if ($url->isChecked()) {
             return;
         }

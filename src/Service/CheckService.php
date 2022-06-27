@@ -37,6 +37,7 @@ class CheckService
 
             $this->entityManager->persist($check);
             $this->entityManager->flush();
+            $this->entityManager->commit();
         } catch (Exception $exception) {
             $this->entityManager->rollback();
 

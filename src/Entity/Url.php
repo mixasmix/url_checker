@@ -76,6 +76,20 @@ class Url implements JsonSerializable
     }
 
     /**
+     * @param Check $check
+     *
+     * @return Url
+     */
+    public function addCheck(Check $check): self
+    {
+        if (!$this->checks->contains($check)) {
+            $this->checks->add($check);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getUrl(): string

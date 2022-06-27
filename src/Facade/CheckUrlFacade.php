@@ -4,11 +4,12 @@ namespace App\Facade;
 
 use App\Service\Transport\Message\CheckUrlMessage;
 use Exception;
-use Guzzle\Http\Client;
 use App\DTO\AddUrlData;
 use App\Entity\Url;
 use App\Service\CheckService;
 use App\Service\UrlService;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -37,6 +38,7 @@ class CheckUrlFacade
      *
      * @return int
      *
+     * @throws GuzzleException
      * @throws Exception
      */
     public function check(Url $url): int
@@ -46,12 +48,14 @@ class CheckUrlFacade
             options: [
                 'http_errors' => false,
             ],
-        )->send()->getStatusCode();
+        )->getStatusCode();
 
-        $this->checkService->create(
+        $check = $this->checkService->create(
             url: $url,
             statusCode: $code,
         );
+
+        $this->urlService->addCheck($url, $check);
 
         return $code;
     }
