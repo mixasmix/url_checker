@@ -1,0 +1,30 @@
+parameters:
+    async_allow_failure_max_retries: 5
+
+framework:
+    messenger:
+        failure_transport: failed
+        transports:
+            checkUrl:
+                dsn: '%rabbitmq.dsn%'
+                options:
+                    exchange:
+                        name: '%app.messenger.checkUrl.exchange%'
+                        type: 'direct'
+                    queues:
+                        '%app.messenger.checkUrl.exchange%': ~
+                retry_strategy:
+                    max_retries: '%async_allow_failure_max_retries%'
+                    delay: 10
+            failed:
+                dsn: '%rabbitmq.dsn%'
+                options:
+                    exchange:
+                        name: '_failed_messages'
+                        type: 'direct'
+                    queues:
+                        '_failed_messages': ~
+        routing:
+            'App\Service\Transport\Message\CheckUrlMessage': checkUrl
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
