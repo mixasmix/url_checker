@@ -20,8 +20,9 @@ class AdminController extends AbstractController
      * @return JsonResponse
      */
     #[Route(path: '/admin/url', methods: ['GET'])]
-    public function getUrls(): JsonResponse
+    public function getUrls()
     {
+        echo phpinfo(); exit;
         return $this->json([
             $this->urlRepository->findAll(),
         ]);
